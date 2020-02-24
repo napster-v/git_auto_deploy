@@ -28,7 +28,7 @@ class ProjectLog(generics.CreateAPIView):
             time.sleep(5)
             subprocess.run(f'python manage.py makemigrations {project.app_names}', shell=True)
             time.sleep(5)
-            subprocess.run(f'python manage.py migrate', shell=True)
+            subprocess.run(f'python manage.py migrate_all', shell=True)
             time.sleep(5)
             subprocess.run(f'sudo service apache2 restart', shell=True)
 
