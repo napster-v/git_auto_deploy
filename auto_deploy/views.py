@@ -24,9 +24,9 @@ class ProjectLog(generics.CreateAPIView):
         if project.project_type == '1':
             subprocess.run('git stash', shell=True)
             time.sleep(2)
-            # subprocess.run(f'git pull origin {project.branch} -f', shell=True)
+            subprocess.run(f'git pull origin {project.branch} -f', shell=True)
             time.sleep(2)
-            subprocess.run(f'python manage.py makemigrations', shell=True)
+            subprocess.run(f'python manage.py makemigrations {project.app_names}', shell=True)
             time.sleep(3)
             subprocess.run(f'python manage.py migrate', shell=True)
             time.sleep(5)

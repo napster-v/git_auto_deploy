@@ -11,13 +11,13 @@ class Project(AppBaseModel):
 
     project_id = models.CharField(max_length=CHAR_FIELD_MAX_LENGTH)
     git_url = models.URLField(max_length=CHAR_FIELD_MAX_LENGTH, verbose_name='GitLab URL')
-    # branch = models.CharField(max_length=CHAR_FIELD_MAX_LENGTH)
+    branch = models.CharField(max_length=CHAR_FIELD_MAX_LENGTH, default='develop')
     os_dir = models.CharField(max_length=CHAR_FIELD_MAX_LENGTH, verbose_name='OS Directory',
                               help_text='Ex. /home/cm-django/')
     project_type = models.CharField(max_length=CHAR_FIELD_MAX_LENGTH, choices=ProjectType.choices)
-    # app_names = models.CharField(max_length=CHAR_FIELD_MAX_LENGTH, blank=True,
-    #                              help_text='Django app names seperated by a space.')
+    app_names = models.CharField(max_length=CHAR_FIELD_MAX_LENGTH, blank=True,
+                                 help_text='Django app names seperated by a space.')
 
 
 class Log(AppBaseModel):
-    text = models.CharField(max_length=CHAR_FIELD_MAX_LENGTH)
+    text = models.CharField(max_length=CHAR_FIELD_MAX_LENGTH, null=True, blank=True)
