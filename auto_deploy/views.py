@@ -30,4 +30,11 @@ class ProjectLog(generics.CreateAPIView):
             time.sleep(5)
             subprocess.run(f'python manage.py migrate', shell=True)
             time.sleep(5)
+            subprocess.run(f'sudo service apache2 restart', shell=True)
+
+        elif project.project_type == '2':
+            subprocess.run(f'git pull origin {project.branch} -f', shell=True)
+            time.sleep(5)
+            subprocess.run(f'sudo service apache2 restart', shell=True)
+
         return Response(status=status.HTTP_200_OK)
