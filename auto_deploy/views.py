@@ -1,6 +1,7 @@
 # Create your views here.
 import os
 import subprocess
+import time
 
 from rest_framework import generics, status
 from rest_framework.response import Response
@@ -19,9 +20,14 @@ class ProjectLog(generics.CreateAPIView):
         data = serializer.validated_data
         project_id = data['project']['id']
         project = Project.objects.get(project_id=project_id)
-        print(os.getcwd())
         os.chdir(project.os_dir)
-        print(os.getcwd())
-        subprocess.run('git commit -m "first commit"', shell=True)
-        subprocess.run('git push -u origin master', shell=True)
+        if project.project_type == '1':
+            subprocess.run('git stash', shell=True)
+            time.sleep(2)
+            # subprocess.run(f'git pull origin {project.branch} -f', shell=True)
+            time.sleep(2)
+            subprocess.run(f'python manage.py makemigrations', shell=True)
+            time.sleep(3)
+            subprocess.run(f'python manage.py migrate', shell=True)
+            time.sleep(5)
         return Response(status=status.HTTP_200_OK)
