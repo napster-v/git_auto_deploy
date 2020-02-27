@@ -21,7 +21,7 @@ class ProjectLog(generics.CreateAPIView):
         project_id = data['project']['id']
         project = Project.objects.get(project_id=project_id)
         os.chdir(project.os_dir)
-        if project.project_type == '1':
+        if project.project_type == 1:
             subprocess.run('git stash', shell=True)
             time.sleep(2)
             subprocess.run(f'git pull origin {project.branch} -f', shell=True)
@@ -32,7 +32,7 @@ class ProjectLog(generics.CreateAPIView):
             time.sleep(5)
             subprocess.run(f'sudo service apache2 restart', shell=True)
 
-        elif project.project_type == '2':
+        elif project.project_type == 2:
             subprocess.run(f'git pull origin {project.branch} -f', shell=True)
             time.sleep(5)
             subprocess.run(f'sudo service apache2 restart', shell=True)

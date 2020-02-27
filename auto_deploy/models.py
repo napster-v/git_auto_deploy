@@ -5,7 +5,7 @@ from git_auto_deploy.base_model import AppBaseModel, CHAR_FIELD_MAX_LENGTH
 
 
 class Project(AppBaseModel):
-    class ProjectType(models.TextChoices):
+    class ProjectType(models.IntegerChoices):
         django = 1, 'Django'
         react = 2, 'React'
 
@@ -14,9 +14,9 @@ class Project(AppBaseModel):
     branch = models.CharField(max_length=CHAR_FIELD_MAX_LENGTH, default='develop')
     os_dir = models.CharField(max_length=CHAR_FIELD_MAX_LENGTH, verbose_name='Project Directory',
                               help_text='Ex. /home/cm-django/')
-    project_type = models.CharField(max_length=CHAR_FIELD_MAX_LENGTH, choices=ProjectType.choices)
+    project_type = models.IntegerField(choices=ProjectType.choices)
     app_names = models.CharField(max_length=CHAR_FIELD_MAX_LENGTH, blank=True,
-                                 help_text='Django app names seperated by a space.')
+                                 help_text='Django app names separated by a space.')
 
 
 class Log(AppBaseModel):
